@@ -1,0 +1,11 @@
+# Use uma imagem base Python compatível com Lambda
+FROM public.ecr.aws/lambda/python:3.10
+
+# Instale as dependências necessárias
+RUN pip install --no-cache-dir joblib boto3 scikeras numpy tensorflow
+
+# Copie o código da função Lambda para o diretório de trabalho
+COPY ml_predict.py ${LAMBDA_TASK_ROOT}
+
+# Defina o manipulador padrão da função Lambda
+CMD ["ml_predict.lambda_handler"]
